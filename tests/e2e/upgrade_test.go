@@ -468,7 +468,7 @@ var _ = Describe("Upgrade", Label(tests.LabelUpgrade, tests.LabelNoOpenshift), O
 		By("upgrading the operator to current version", func() {
 			timeout := 120
 			// Upgrade to the new version
-			_, _, err := testsUtils.Run(fmt.Sprintf("kubectl apply -f %v", operatorUpgradeFile))
+			_, _, err := testsUtils.Run(fmt.Sprintf("kubectl apply --server-side=true --force-conflicts -f %v", operatorUpgradeFile))
 			Expect(err).NotTo(HaveOccurred())
 			// With the new deployment, a new pod should be started. When it's
 			// ready, the old one is removed. We wait for the number of replicas
